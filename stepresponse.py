@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.signal import StateSpace, step
 
 
@@ -33,3 +34,24 @@ def step_response(A, B, C, D, T=None):
                       np.asarray(C, dtype=float), np.asarray(D, dtype=float))
     t, y = step(sys, T=T)
     return t, y
+
+
+if __name__ == "__main__":
+    A = [[0, 1], [-1, -1]]
+    B = [[0], [1]]
+    C = [[1, 0]]
+    D = [[0]]
+
+    t, y = step_response(A, B, C, D, T=np.linspace(0, 12, 200))
+
+    plt.figure()
+    plt.plot(t, y)
+    plt.axhline(1.0, color="k", linestyle="--", linewidth=0.8)
+    plt.xlabel("Time [s]")
+    plt.ylabel("Output")
+    plt.title("Step Response (wn=1, zeta=0.5)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("stepresponse.png", dpi=150)
+    plt.show()
+    print("Plot saved to stepresponse.png")
