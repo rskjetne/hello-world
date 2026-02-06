@@ -29,6 +29,7 @@ def step_response(A, B, C, D, T=None):
     y : ndarray
         Step response output.
     """
-    sys = StateSpace(A, B, C, D)
+    sys = StateSpace(np.asarray(A, dtype=float), np.asarray(B, dtype=float),
+                      np.asarray(C, dtype=float), np.asarray(D, dtype=float))
     t, y = step(sys, T=T)
     return t, y
